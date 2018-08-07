@@ -1,117 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-     /* Set the size of the div element that contains the map */
-    #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-         }
-    </style>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>FoodMap</title>
-   
-    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyCvyM04OYyS25UfBbEcA4TS7J305ZLhXAY",
-        authDomain: "firechat-2b74c.firebaseapp.com",
-        databaseURL: "https://firechat-2b74c.firebaseio.com",
-        projectId: "firechat-2b74c",
-        storageBucket: "firechat-2b74c.appspot.com",
-        messagingSenderId: "1066589839591"
-    };
-    firebase.initializeApp(config);
-    </script>
+    <title>Document</title>
 </head>
 <body>
-    <div>
-        <input type="text" id="txt_lat" placeholder="Latitud" />
-        <input type="text" id="txt_lng" placeholder="Longitud" />
-        <button type="button" onclick="agregar();">Agregar</button>
+    <div class="preload">
+        <div class="logo">
+            Food<span style="color:rgb(191, 236, 25);">Map</span>
+        </div>
+        <div class="loader-frame">
+            <div class="loader1" id="loader1"></div>
+            <div class="loader2" id="loader2"></div>
+        </div>
     </div>
-    <h3>My Google Maps Demo</h3>
-    <div id="map"></div>
-    <script>
-// Initialize and add the map
-function initMap() {
-  // The location of Uluru
-  var uluru = {lat: 23.63, lng: -102.55};
-  
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 2, center: uluru});
-      
-  // The marker, positioned at Uluru
-  /*var marker = new google.maps.Marker({position: uluru, map: map});*/
-
-  
-  var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-      '<div id="bodyContent">'+
-      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-      'sandstone rock formation in the southern part of the '+
-      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-      'south west of the nearest large town, Alice Springs; 450&#160;km '+
-      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-      'Aboriginal people of the area. It has many springs, waterholes, '+
-      'rock caves and ancient paintings. Uluru is listed as a World '+
-      'Heritage Site.</p>'+
-      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-      '(last visited June 22, 2009).</p>'+
-      '</div>'+
-      '</div>';
-
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
-
-  ref = firebase.database().ref("ubicaciones"). once("value",function(snap) {
-
-    datos = snap.val(); 
-    console.log(datos);
-    for(k in datos) {
-        fila = datos[k];
-        pos = {lat: parseFloat(fila.lat), lng: parseFloat(fila.lng)};
-        var maker = new google.maps.Marker({
-            position: pos,
-            map: map
-        });
-        maker.addListener('click', function() {
-    infowindow.open(map, maker);
-  });
-    }
-    
-  });
-  
-
-}
-    </script>
-    <!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key (which is not needed for this tutorial)
-    * The callback parameter executes the initMap() function
-    -->
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfMJdqBCkaDvSjDT0Dl_2YLF2K6REcpQE&callback=initMap">
-    </script>
-   <script> function agregar(){
-        u={};
-        u.lat = document.getElementById("txt_lat").value;
-        u.lng = document.getElementById("txt_lng").value;
-       
-        firebase.database().ref("ubicaciones").push(u);
-        alert("Registro agregado");
-        window.location = window.location;
-    }
-</script>
-</body> 
+    <script src="js/script.js"></script>
+</body>
 </html>
