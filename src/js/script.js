@@ -6,7 +6,7 @@
     function frame() {
         if(loading == 100) {
             clearInterval(id);
-            window.open("welcome.html", "_self");
+            window.open("foodmap.html", "_self");
         }else{
             loading = loading + 1;
             if(loading == 90){
