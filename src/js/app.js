@@ -6,15 +6,15 @@ var service;
 var markers = [];
 
 function initialize(){
-    var center = new google.maps.LatLng(19.4978, -99.1269);
+    var center = new google.maps.LatLng(19.404530, -99.163885);
     map = new google.maps.Map(document.getElementById("map"),{
         center:center,
-        zoom:13
+        zoom:15
     });
     
     var request = {
         location: center,
-        radius: 8047,
+        radius: 500,
         types: ['Restaurante']
     };
     
@@ -30,7 +30,7 @@ function initialize(){
 
         var request = {
             location: event.LatLng,
-            radius: 8047,
+            radius: 500,
             types: ['restaurant']
         };
         service.nearbySearch(request, callback);
